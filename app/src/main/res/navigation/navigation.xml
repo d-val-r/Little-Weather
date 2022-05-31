@@ -6,7 +6,7 @@
     app:startDestination="@id/overViewFragment">
     <fragment
         android:id="@+id/overViewFragment"
-        android:name="com.example.weatherapp.overview.OverViewFragment"
+        android:name="com.example.weatherapp.overview.OverviewFragment"
         android:label="fragment_over_view"
         tools:layout="@layout/fragment_over_view" />
 </navigation>
