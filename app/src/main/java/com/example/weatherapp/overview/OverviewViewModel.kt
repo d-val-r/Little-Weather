@@ -24,7 +24,7 @@ class OverviewViewModel : ViewModel() {
         WeatherApi.retrofitService.getWeatherFromAPI().enqueue(
             object: Callback<LocationWeather> {
                 override fun onResponse(call: Call<LocationWeather>, response: Response<LocationWeather>) {
-                    _response.value = response.body()?.conditions?.get(0)?.main?.get("temp").toString()
+                    _response.value = response.body()?.conditions?.get(0)?.weather?.get(0)?.get("main").toString()
                 }
 
                 override fun onFailure(call: Call<LocationWeather>, t: Throwable) {
