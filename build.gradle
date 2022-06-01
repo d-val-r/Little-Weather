@@ -2,6 +2,7 @@
 buildscript {
     ext {
         version_retrofit = "2.9.0"
+        version_moshi = "1.9.3"
     }
 }
 
