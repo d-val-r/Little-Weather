@@ -7,7 +7,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-private const val BASE_URL = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid="
+private const val BASE_URL = "http://api.openweathermap.org/data/2.5/"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(ScalarsConverterFactory.create())
@@ -15,8 +15,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface WeatherAPIService {
-    @GET("")
-    fun getWeather(): Call<String>
+    @GET("forecast?id=524901&appid=")
+    fun getWeatherFromAPI(): Call<String>
 }
 
 object WeatherApi {
