@@ -20,7 +20,7 @@ class OverviewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentOverViewBinding.inflate(inflater)
-        val button = binding.searchButton
+        val textInput = binding.locationInput
 
         viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java)
 
@@ -31,7 +31,7 @@ class OverviewFragment : Fragment() {
         }
 
         binding.searchButton.setOnClickListener {
-            viewModel.getWeather()
+            viewModel.getWeather(textInput.text.toString())
         }
 
         viewModel.response

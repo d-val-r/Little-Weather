@@ -1,5 +1,6 @@
 package com.example.weatherapp.overview
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,11 +21,11 @@ class OverviewViewModel : ViewModel() {
 
 
 
-    fun getWeather() {
-        WeatherApi.retrofitService.getWeatherFromAPI().enqueue(
+    fun getWeather(location: String) {
+        WeatherApi.retrofitService.getWeatherFromAPI(location, 1, "").enqueue(
             object: Callback<LocationWeather> {
                 override fun onResponse(call: Call<LocationWeather>, response: Response<LocationWeather>) {
-                    _response.value = response.body()?.conditions?.get(0)?.weather?.get(0)?.get("main").toString()
+                    _response.value = response.body()?.name
                 }
 
                 override fun onFailure(call: Call<LocationWeather>, t: Throwable) {
