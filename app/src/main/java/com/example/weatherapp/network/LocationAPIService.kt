@@ -1,6 +1,6 @@
 package com.example.weatherapp.network
 
-import com.example.weatherapp.entity.LocationWeather
+import com.example.weatherapp.entity.Location
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
+private const val BASE_URL = "http://api.openweathermap.org/geo/1.0/"
 
 
 private val moshi = Moshi.Builder()
@@ -21,15 +21,15 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 
-interface WeatherAPIService {
-    @GET("weather?")
-    suspend fun getWeatherFromAPI(@Query("lat") lat: Float,
-                                   @Query("lon") lon: Float,
-                                   @Query("appid") key: String): LocationWeather
+interface LocationAPIService {
+    @GET("direct?")
+    suspend fun getLocationFromAPI(@Query("q") loc: String,
+                                   @Query("limit") lim: Int,
+                                   @Query("appid") key: String): List<Location>
 }
 
-object WeatherApi {
-    val retrofitService : WeatherAPIService by lazy {
-        retrofit.create(WeatherAPIService::class.java)
+object LocationApi {
+    val retrofitService : LocationAPIService by lazy {
+        retrofit.create(LocationAPIService::class.java)
     }
 }

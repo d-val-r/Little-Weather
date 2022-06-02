@@ -1,18 +1,19 @@
 package com.example.weatherapp.overview
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.entity.Location
+import com.example.weatherapp.network.LocationApi
 import com.example.weatherapp.network.WeatherApi
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class OverviewViewModel : ViewModel() {
+
+    private var lat: Float = 0F
+    private var lon: Float = 0F
 
     // the mutable packing property
     private var _response = MutableLiveData<String>()
@@ -24,27 +25,19 @@ class OverviewViewModel : ViewModel() {
 
 
     fun getWeather(location: String) {
-//        WeatherApi.retrofitService.getWeatherFromAPI(location, 1, "").enqueue(
-//            object: Callback<List<Location>> {
-//                override fun onResponse(call: Call<List<Location>>, response: Response<List<Location>>) {
-//                    _response.value = response.body()?.get(0)?.name + ": " + response.body()?.get(0)?.lat +
-//                            " " + response.body()?.get(0)?.lon
-//                }
-//
-//                override fun onFailure(call: Call<List<Location>>, t: Throwable) {
-//                    _response.value = "Failure: " + t.message
-//                }
-//            }
-//        )
 
         viewModelScope.launch {
             try {
-                val result = WeatherApi.retrofitService.getWeatherFromAPI(
+                val locResult = LocationApi.retrofitService.getLocationFromAPI(
                     location,
                     1,
-                    "")
-                _response.value = result[0].name + ": " + result[0].lat +
-                            " " + result[0].lon
+                    "cf60e2c6735463e6bda22d6c8ab3d444")
+                    lat = locResult[0].lat
+                    lon = locResult[0].lon
+
+                val weatherResult = WeatherApi.retrofitService.getWeatherFromAPI(lat, lon, "")
+                Log.i("testing", lat.toString() + " " + lon.toString())
+                _response.value = weatherResult.main["temp"].toString()
 
             } catch (e: Exception) {
                 _response.value = "Invalid response from server. Please make sure you are spelling everything correctly."
