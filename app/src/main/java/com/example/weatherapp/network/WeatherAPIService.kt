@@ -26,7 +26,7 @@ interface WeatherAPIService {
     @GET("direct?")
     fun getWeatherFromAPI(@Query("q") loc: String,
                           @Query("limit") lim: Int,
-                          @Query("appid") key: String): Call<LocationWeather>
+                          @Query("appid") key: String): Call<List<LocationWeather>>
 }
 
 object WeatherApi {

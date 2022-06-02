@@ -23,12 +23,13 @@ class OverviewViewModel : ViewModel() {
 
     fun getWeather(location: String) {
         WeatherApi.retrofitService.getWeatherFromAPI(location, 1, "").enqueue(
-            object: Callback<LocationWeather> {
-                override fun onResponse(call: Call<LocationWeather>, response: Response<LocationWeather>) {
-                    _response.value = response.body()?.name
+            object: Callback<List<LocationWeather>> {
+                override fun onResponse(call: Call<List<LocationWeather>>, response: Response<List<LocationWeather>>) {
+                    _response.value = response.body()?.get(0)?.name + " " + response.body()?.get(0)?.lat +
+                            " " + response.body()?.get(0)?.lon
                 }
 
-                override fun onFailure(call: Call<LocationWeather>, t: Throwable) {
+                override fun onFailure(call: Call<List<LocationWeather>>, t: Throwable) {
                     _response.value = "Failure: " + t.message
                 }
             }
