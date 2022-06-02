@@ -1,6 +1,7 @@
 package com.example.weatherapp.overview
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,13 @@ class OverviewFragment : Fragment() {
         }
 
         binding.searchButton.setOnClickListener {
-            viewModel.getWeather(textInput.text.toString())
+            var input = binding.locationInput.text.toString()
+            if (" " in input) {
+                input = input.split(" ").joinToString("")
+            }
+            Log.i("inputtest", input)
+            viewModel.getWeather(input.lowercase())
+
         }
 
         viewModel.response
