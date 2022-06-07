@@ -21,14 +21,22 @@ class OverviewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentOverViewBinding.inflate(inflater)
-        val textInput = binding.locationInput
+        val name = binding.cityName
+        val temperature = binding.cityTemp
 
         viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java)
 
         binding.viewModel = viewModel
 
         viewModel.response.observe(viewLifecycleOwner) {
-            binding.weatherCall.text = it
+            if (it[0] == "failed") {
+                binding.responseCard.visibility = View.GONE
+                binding.weatherCall.text = it[1]
+            } else {
+                name.text = it[0]
+                temperature.text = it[1]
+                binding.responseCard.visibility = View.VISIBLE
+            }
         }
 
         binding.searchButton.setOnClickListener {
@@ -40,8 +48,6 @@ class OverviewFragment : Fragment() {
             viewModel.getWeather(input.lowercase())
 
         }
-
-        viewModel.response
 
 
         return binding.root

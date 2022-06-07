@@ -15,13 +15,14 @@ class OverviewViewModel : ViewModel() {
     private var lat: Float = 0F
     private var lon: Float = 0F
 
+    private val KEY = ""
+
     // the mutable packing property
-    private var _response = MutableLiveData<String>()
+    private var _response = MutableLiveData<List<String>>()
 
     // the immutable exposed property
-    val response: LiveData<String>
+    val response: LiveData<List<String>>
         get() = _response
-
 
 
     fun getWeather(location: String) {
@@ -31,16 +32,17 @@ class OverviewViewModel : ViewModel() {
                 val locResult = LocationApi.retrofitService.getLocationFromAPI(
                     location,
                     1,
-                    "cf60e2c6735463e6bda22d6c8ab3d444")
+                    KEY)
                     lat = locResult[0].lat
                     lon = locResult[0].lon
 
-                val weatherResult = WeatherApi.retrofitService.getWeatherFromAPI(lat, lon, "")
+
+                val weatherResult = WeatherApi.retrofitService.getWeatherFromAPI(lat, lon, KEY)
                 Log.i("testing", lat.toString() + " " + lon.toString())
-                _response.value = weatherResult.main["temp"].toString()
+                _response.value = listOf(weatherResult.name, weatherResult.main["temp"].toString())
 
             } catch (e: Exception) {
-                _response.value = "Invalid response from server. Please make sure you are spelling everything correctly."
+                _response.value = listOf("failed", "Invalid response from server. Please make sure you are spelling everything correctly.")
             }
         }
     }
