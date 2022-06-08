@@ -36,7 +36,6 @@ class OverviewViewModel : ViewModel() {
                     lat = locResult[0].lat
                     lon = locResult[0].lon
 
-
                 val weatherResult = WeatherApi.retrofitService.getWeatherFromAPI(lat, lon, KEY)
                 Log.i("testing", lat.toString() + " " + lon.toString())
                 _response.value = listOf(weatherResult.name, weatherResult.main["temp"].toString())
