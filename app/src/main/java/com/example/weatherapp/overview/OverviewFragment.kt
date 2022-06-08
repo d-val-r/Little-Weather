@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
+import com.example.weatherapp.database.WeatherDatabase
 import com.example.weatherapp.databinding.FragmentOverViewBinding
 
 
@@ -26,7 +27,15 @@ class OverviewFragment : Fragment() {
         val name = binding.cityName
         val temperature = binding.cityTemp
 
-        viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java)
+        // database variables
+        val application = requireNotNull(activity).application
+        val database = WeatherDatabase.getInstance(application).weatherDatabaseDao
+
+        // ViewModel factory
+        val viewModelFactory = OverviewViewModelFactory(application, database)
+
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(OverviewViewModel::class.java)
 
         binding.viewModel = viewModel
 
@@ -52,6 +61,7 @@ class OverviewFragment : Fragment() {
         }
 
         binding.addButton.setOnClickListener{
+            viewModel.add()
             findNavController()
                 .navigate(R.id.action_overViewFragment_to_homeFragment)
         }

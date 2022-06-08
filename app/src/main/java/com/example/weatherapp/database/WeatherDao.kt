@@ -10,12 +10,17 @@ interface WeatherDao {
     suspend fun insert(entry: Entry)
 
     @Update
-    fun update(entry: Entry)
+    suspend fun update(entry: Entry)
 
     @Query("SELECT * from locations_table WHERE cityName = :name")
-    fun get(name: String): Entry?
+    suspend fun get(name: String): Entry?
 
     @Query("DELETE from locations_table WHERE cityName = :name")
-    fun delete(name: String)
+    suspend fun delete(name: String)
 
+    @Query("SELECT * from locations_table")
+    suspend fun getAllEntries(): List<Entry?>
+
+    @Query("DELETE from locations_table")
+    suspend fun deleteAllEntries()
 }
