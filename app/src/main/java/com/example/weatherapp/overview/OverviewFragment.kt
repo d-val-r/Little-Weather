@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentOverViewBinding
 
 
@@ -47,6 +49,11 @@ class OverviewFragment : Fragment() {
             Log.i("inputtest", input)
             viewModel.getWeather(input.lowercase())
 
+        }
+
+        binding.addButton.setOnClickListener{
+            findNavController()
+                .navigate(R.id.action_overViewFragment_to_homeFragment)
         }
 
 
