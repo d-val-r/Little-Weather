@@ -44,14 +44,10 @@ class HomeFragment : Fragment() {
 
         binding.locationsList.adapter = adapter
 
-        viewModel.let {
-            it.locList.observe(viewLifecycleOwner, Observer{ list ->
-                run {
-                    binding.locationsList.let {
-                        it.adapter?.notifyDataSetChanged()
-                    }
-                }
-            })
+        // observe the datasource for the RecyclerView
+        // submit the list upon its data changing
+        viewModel.locList.observe(viewLifecycleOwner) {list ->
+            adapter.submitList(list)
         }
 
         // Inflate the layout for this fragment
