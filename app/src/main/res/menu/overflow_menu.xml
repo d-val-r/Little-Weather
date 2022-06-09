@@ -3,4 +3,8 @@
     <item
         android:id="@+id/add_location_item"
         android:title="Add Location" />
+
+    <item
+        android:id="@+id/delete_all_item"
+        android:title="Delete All" />
 </menu>

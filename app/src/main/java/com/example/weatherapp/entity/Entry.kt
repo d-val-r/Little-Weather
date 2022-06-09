@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 // into this class, which will be inserted into the database
 @Entity(tableName = "locations_table")
 data class Entry(
-    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "city")
     val cityName: String,
 
     @ColumnInfo(name = "state")
@@ -25,4 +25,7 @@ data class Entry(
 
     @ColumnInfo(name = "hmdty")
     val humidity: Float
-)
+) {
+    @PrimaryKey(autoGenerate = false)
+    var ID = "${cityName},${stateName},${countryName}"
+}
