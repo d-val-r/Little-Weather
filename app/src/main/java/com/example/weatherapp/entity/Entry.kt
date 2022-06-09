@@ -28,4 +28,8 @@ data class Entry(
 ) {
     @PrimaryKey(autoGenerate = false)
     var ID = "${cityName},${stateName},${countryName}"
+
+    // converts the temperature to a Fahrenheit representation and stores it as a
+    // string to render in a TextView
+    var fTemp = ((temperature - 273.15) * (9.0/5.0) + 32).toString()
 }
