@@ -28,6 +28,13 @@
                 android:id="@+id/cityName" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{location.stateName}"
+                android:layout_marginLeft="10dp"
+                android:visibility="@{location.stateVisibility}"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -38,6 +45,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="@{location.fTemp}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@{location.weather}"/>
 
         </LinearLayout>
 
