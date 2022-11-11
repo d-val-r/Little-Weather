@@ -19,7 +19,7 @@ class LocationListAdapter : ListAdapter<Entry, LocationListAdapter.LocationViewH
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
-        return LocationViewHolder(LocationListItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return LocationViewHolder(LocationListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
