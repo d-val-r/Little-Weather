@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
@@ -34,8 +33,7 @@ class OverviewFragment : Fragment() {
         // ViewModel factory
         val viewModelFactory = OverviewViewModelFactory(application, database)
 
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(OverviewViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[OverviewViewModel::class.java]
 
         binding.viewModel = viewModel
 

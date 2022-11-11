@@ -1,6 +1,5 @@
 package com.example.weatherapp.home
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

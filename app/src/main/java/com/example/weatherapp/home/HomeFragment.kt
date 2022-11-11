@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
 
         // ViewModel variables
         val viewModelFactory = HomeViewModelFactory(dao, application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
 
         binding.viewModel = viewModel
 
