@@ -24,9 +24,11 @@ class OverviewViewModel(
     private var name: String = ""
     private var state: String = ""
     private var country: String = ""
+    private var weather_map: Map<String, Any> = mapOf<String, Any>()
+    private var weather_list: ArrayList<Any> = ArrayList<Any>()
     private var weather: String = ""
-    private var temperature: Float = 0F
-    private var humidity: Float = 0F
+    private var temperature: Double = 0.0
+    private var humidity: Double = 0.0
 
     private val KEY = ""
 
@@ -54,21 +56,30 @@ class OverviewViewModel(
                 state = locResult.state
                 country = locResult.country
 
+                Log.i("loctest", "lat: ${lat}, lon: ${lon}")
+
 
                 // connect to the API
                 val weatherResult = WeatherApi.retrofitService.getWeatherFromAPI(lat, lon, KEY)
 
+
+                // the JSON response returns the weather map in a list of length one;
+                // must cast to temporary variable to track it
+                weather_list = weatherResult.current["weather"] as ArrayList<Any>
+
+                // cast the weather entry to a map
+                weather_map = weather_list[0] as Map<String, Any>
+
+                // get the weather data
+                temperature = weatherResult.current["temp"] as Double
+                humidity = weatherResult.current["humidity"] as Double
+
                 // set the live data response so that the search box displays the values
-                _response.value = listOf(weatherResult.name, weatherResult.main["temp"].toString())
-
-                // set the weather conditions, if available
-                weather = weatherResult.weather[0]["main"].toString() ?: "N/A"
-                temperature = weatherResult.main["temp"] ?: -999F
-                humidity = weatherResult.main["humidity"] ?: -1F
-
+                _response.value = listOf(name, weatherResult.current["temp"].toString())
 
             } catch (e: Exception) {
-                _response.value = listOf("failed", "Invalid response from server. Please make sure you are spelling everything correctly.")
+//                _response.value = listOf("failed", "Invalid response from server. Please make sure you are spelling everything correctly.")
+                _response.value = listOf("failed", e.toString())
             }
         }
     }

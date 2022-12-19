@@ -23,10 +23,10 @@ data class Entry(
     val weather: String,
 
     @ColumnInfo(name = "temp")
-    val temperature: Float,
+    val temperature: Double,
 
     @ColumnInfo(name = "hmdty")
-    val humidity: Float
+    val humidity: Double
 ) {
     @PrimaryKey(autoGenerate = false)
     var ID = "${cityName},${stateName},${countryName}"

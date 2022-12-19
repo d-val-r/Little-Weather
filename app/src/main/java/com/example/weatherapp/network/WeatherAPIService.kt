@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
+private const val BASE_URL = "https://api.openweathermap.org/data/3.0/"
 
 
 private val moshi = Moshi.Builder()
@@ -22,7 +22,7 @@ private val retrofit = Retrofit.Builder()
 
 
 interface WeatherAPIService {
-    @GET("weather?")
+    @GET("onecall?")
     suspend fun getWeatherFromAPI(@Query("lat") lat: Float,
                                    @Query("lon") lon: Float,
                                    @Query("appid") key: String): LocationWeather
